@@ -12,8 +12,7 @@ _$ShopImpl _$$ShopImplFromJson(Map<String, dynamic> json) => _$ShopImpl(
       address: json['address'] as String,
       description: json['description'] as String,
       imageUrl: json['imageUrl'] as String,
-      location: const GeoPointConverter()
-          .fromJson(json['location'] as Map<String, dynamic>),
+      location: Location.fromJson(json['location'] as Map<String, dynamic>),
       openTime: json['openTime'] as String,
       closeTime: json['closeTime'] as String,
       phone: json['phone'] as String?,
@@ -32,7 +31,7 @@ Map<String, dynamic> _$$ShopImplToJson(_$ShopImpl instance) =>
       'address': instance.address,
       'description': instance.description,
       'imageUrl': instance.imageUrl,
-      'location': const GeoPointConverter().toJson(instance.location),
+      'location': instance.location.toJson(),
       'openTime': instance.openTime,
       'closeTime': instance.closeTime,
       'phone': instance.phone,
@@ -40,4 +39,20 @@ Map<String, dynamic> _$$ShopImplToJson(_$ShopImpl instance) =>
       'socialMedia': instance.socialMedia,
       'likesCount': instance.likesCount,
       'commentsCount': instance.commentsCount,
+    };
+
+_$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
+    _$LocationImpl(
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
+      city: json['city'] as String?,
+      state: json['state'] as String?,
+    );
+
+Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
+    <String, dynamic>{
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'city': instance.city,
+      'state': instance.state,
     };

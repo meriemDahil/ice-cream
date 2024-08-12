@@ -25,9 +25,7 @@ mixin _$Shop {
   String get address => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
-  @GeoPointConverter()
-  GeoPoint get location =>
-      throw _privateConstructorUsedError; // Use the custom converter here
+  Location get location => throw _privateConstructorUsedError;
   String get openTime => throw _privateConstructorUsedError;
   String get closeTime => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
@@ -52,7 +50,7 @@ abstract class $ShopCopyWith<$Res> {
       String address,
       String description,
       String imageUrl,
-      @GeoPointConverter() GeoPoint location,
+      Location location,
       String openTime,
       String closeTime,
       String? phone,
@@ -60,6 +58,8 @@ abstract class $ShopCopyWith<$Res> {
       Map<String, String>? socialMedia,
       int likesCount,
       int commentsCount});
+
+  $LocationCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -113,7 +113,7 @@ class _$ShopCopyWithImpl<$Res, $Val extends Shop>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as GeoPoint,
+              as Location,
       openTime: null == openTime
           ? _value.openTime
           : openTime // ignore: cast_nullable_to_non_nullable
@@ -144,6 +144,14 @@ class _$ShopCopyWithImpl<$Res, $Val extends Shop>
               as int,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationCopyWith<$Res> get location {
+    return $LocationCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -159,7 +167,7 @@ abstract class _$$ShopImplCopyWith<$Res> implements $ShopCopyWith<$Res> {
       String address,
       String description,
       String imageUrl,
-      @GeoPointConverter() GeoPoint location,
+      Location location,
       String openTime,
       String closeTime,
       String? phone,
@@ -167,6 +175,9 @@ abstract class _$$ShopImplCopyWith<$Res> implements $ShopCopyWith<$Res> {
       Map<String, String>? socialMedia,
       int likesCount,
       int commentsCount});
+
+  @override
+  $LocationCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -217,7 +228,7 @@ class __$$ShopImplCopyWithImpl<$Res>
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as GeoPoint,
+              as Location,
       openTime: null == openTime
           ? _value.openTime
           : openTime // ignore: cast_nullable_to_non_nullable
@@ -260,7 +271,7 @@ class _$ShopImpl implements _Shop {
       required this.address,
       required this.description,
       required this.imageUrl,
-      @GeoPointConverter() required this.location,
+      required this.location,
       required this.openTime,
       required this.closeTime,
       this.phone,
@@ -284,9 +295,7 @@ class _$ShopImpl implements _Shop {
   @override
   final String imageUrl;
   @override
-  @GeoPointConverter()
-  final GeoPoint location;
-// Use the custom converter here
+  final Location location;
   @override
   final String openTime;
   @override
@@ -382,7 +391,7 @@ abstract class _Shop implements Shop {
       required final String address,
       required final String description,
       required final String imageUrl,
-      @GeoPointConverter() required final GeoPoint location,
+      required final Location location,
       required final String openTime,
       required final String closeTime,
       final String? phone,
@@ -404,9 +413,8 @@ abstract class _Shop implements Shop {
   @override
   String get imageUrl;
   @override
-  @GeoPointConverter()
-  GeoPoint get location;
-  @override // Use the custom converter here
+  Location get location;
+  @override
   String get openTime;
   @override
   String get closeTime;
@@ -423,5 +431,196 @@ abstract class _Shop implements Shop {
   @override
   @JsonKey(ignore: true)
   _$$ShopImplCopyWith<_$ShopImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Location _$LocationFromJson(Map<String, dynamic> json) {
+  return _Location.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Location {
+  double get latitude => throw _privateConstructorUsedError;
+  double get longitude => throw _privateConstructorUsedError;
+  String? get city => throw _privateConstructorUsedError;
+  String? get state => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $LocationCopyWith<Location> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LocationCopyWith<$Res> {
+  factory $LocationCopyWith(Location value, $Res Function(Location) then) =
+      _$LocationCopyWithImpl<$Res, Location>;
+  @useResult
+  $Res call({double latitude, double longitude, String? city, String? state});
+}
+
+/// @nodoc
+class _$LocationCopyWithImpl<$Res, $Val extends Location>
+    implements $LocationCopyWith<$Res> {
+  _$LocationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? city = freezed,
+    Object? state = freezed,
+  }) {
+    return _then(_value.copyWith(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$LocationImplCopyWith<$Res>
+    implements $LocationCopyWith<$Res> {
+  factory _$$LocationImplCopyWith(
+          _$LocationImpl value, $Res Function(_$LocationImpl) then) =
+      __$$LocationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double latitude, double longitude, String? city, String? state});
+}
+
+/// @nodoc
+class __$$LocationImplCopyWithImpl<$Res>
+    extends _$LocationCopyWithImpl<$Res, _$LocationImpl>
+    implements _$$LocationImplCopyWith<$Res> {
+  __$$LocationImplCopyWithImpl(
+      _$LocationImpl _value, $Res Function(_$LocationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? latitude = null,
+    Object? longitude = null,
+    Object? city = freezed,
+    Object? state = freezed,
+  }) {
+    return _then(_$LocationImpl(
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as double,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
+      state: freezed == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$LocationImpl implements _Location {
+  _$LocationImpl(
+      {required this.latitude, required this.longitude, this.city, this.state});
+
+  factory _$LocationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$LocationImplFromJson(json);
+
+  @override
+  final double latitude;
+  @override
+  final double longitude;
+  @override
+  final String? city;
+  @override
+  final String? state;
+
+  @override
+  String toString() {
+    return 'Location(latitude: $latitude, longitude: $longitude, city: $city, state: $state)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocationImpl &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.state, state) || other.state == state));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, latitude, longitude, city, state);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
+      __$$LocationImplCopyWithImpl<_$LocationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$LocationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Location implements Location {
+  factory _Location(
+      {required final double latitude,
+      required final double longitude,
+      final String? city,
+      final String? state}) = _$LocationImpl;
+
+  factory _Location.fromJson(Map<String, dynamic> json) =
+      _$LocationImpl.fromJson;
+
+  @override
+  double get latitude;
+  @override
+  double get longitude;
+  @override
+  String? get city;
+  @override
+  String? get state;
+  @override
+  @JsonKey(ignore: true)
+  _$$LocationImplCopyWith<_$LocationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
