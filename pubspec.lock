@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.4.1"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.1"
   args:
     dependency: transitive
     description:
@@ -241,6 +249,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.10"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      sha256: "0dfb6b6a1979dac1c1245e17cef824d7b452ea29bd33d3467269f9bef3715fb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.6.0"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -560,6 +584,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   intl:
     dependency: "direct main"
     description:
@@ -580,10 +612,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
+      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.6.7"
   json_annotation:
     dependency: transitive
     description:
@@ -648,6 +680,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  location:
+    dependency: "direct main"
+    description:
+      name: location
+      sha256: "6463a242973bf247e3fb1c7722919521b98026978ee3b5177202e103a39c145e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
+  location_platform_interface:
+    dependency: transitive
+    description:
+      name: location_platform_interface
+      sha256: "1e535ccc8b4a9612de4e4319871136b45d2b5d1fb0c2a8bf99687242bf7ca5f7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
+  location_web:
+    dependency: transitive
+    description:
+      name: location_web
+      sha256: "613597b489beb396f658c6f4358dd383c5ed0a1402d95e287642a5f2d8171cb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.3"
   logger:
     dependency: transitive
     description:
@@ -664,6 +720,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  maplibre_gl:
+    dependency: "direct main"
+    description:
+      name: maplibre_gl
+      sha256: ea2fa443e7d5dc18db7f37a0f6f5af40642888c56b81a14441aeddea077adaea
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.0"
+  maplibre_gl_platform_interface:
+    dependency: transitive
+    description:
+      name: maplibre_gl_platform_interface
+      sha256: "718c3503f36936fbf35c34d6ddf8bf770474c5ba1e6cb1d8caece44efae424af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.0"
+  maplibre_gl_web:
+    dependency: transitive
+    description:
+      name: maplibre_gl_web
+      sha256: e7d71b08f24dca70e9c9cf841b096704a677e6239447d87220ec071355768149
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.0"
   matcher:
     dependency: transitive
     description:
