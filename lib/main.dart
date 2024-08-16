@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ice_cream/firebase_options.dart';
-import 'package:ice_cream/map/mapIntegration.dart';
-import 'package:ice_cream/splash_screen/splash_screen.dart';
+import 'package:ice_cream/map/map_integration.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
