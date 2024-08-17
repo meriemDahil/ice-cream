@@ -5,6 +5,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class MapIntegration extends StatefulWidget {
+  const MapIntegration({super.key});
+
   @override
   _MapIntegrationState createState() => _MapIntegrationState();
 }
@@ -12,7 +14,7 @@ class MapIntegration extends StatefulWidget {
 class _MapIntegrationState extends State<MapIntegration> {
   final cacheManager = CacheManager(
     Config(
-      'customCacheKey',
+      'customCacheKey', //  A unique key used to identify this cache.
       stalePeriod: const Duration(days: 30),
       maxNrOfCacheObjects: 200,
     ),
@@ -32,7 +34,7 @@ class _MapIntegrationState extends State<MapIntegration> {
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
-      options: MapOptions(
+      options: const MapOptions(
         initialCenter: LatLng(28.026876 ,1.65284), // alger
         initialZoom: 13.0,
       ),
@@ -50,10 +52,10 @@ class _MapIntegrationState extends State<MapIntegration> {
             right: 10,
             child: Container(
               color: Colors.white,
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Tiles Cached: ${_cacheStatus.values.where((cached) => cached).length}',
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
@@ -63,8 +65,9 @@ class _MapIntegrationState extends State<MapIntegration> {
 }
 
 class TileProviderWithCacheStatus extends TileProvider {
-  final CacheManager cacheManager;
-  final Function(String, bool) cacheStatusCallback;
+  final CacheManager cacheManager; // CacheManager It manages downloading, storing, and retrieving cached files.
+  final Function(String, bool) cacheStatusCallback; //A callback function that updates the UI with the caching status of a particular tile.(url: The URL of the tile,isCached indicating whether the tile is cached or not.)
+ 
 
   TileProviderWithCacheStatus({
     required this.cacheManager,
@@ -77,15 +80,17 @@ class TileProviderWithCacheStatus extends TileProvider {
     return _getCachedImageProvider(url);
   }
 
+  //getTileUrl constructs the full URL for the tile by replacing the placeholders in the urlTemplate ({z}, {x}, {y}) with the actual values
+
   @override
   String getTileUrl(TileCoordinates coordinates, TileLayer options) {
     final urlTemplate = options.urlTemplate;
     final tileUrl = urlTemplate!
-       
         .replaceAll('{z}', coordinates.z.toString())
         .replaceAll('{x}', coordinates.x.toString())
         .replaceAll('{y}', coordinates.y.toString());
     return tileUrl;
+
   }
 
   ImageProvider _getCachedImageProvider(String url) {
@@ -95,5 +100,7 @@ class TileProviderWithCacheStatus extends TileProvider {
     });
 
     return CachedNetworkImageProvider(url, cacheManager: cacheManager);
+
+    //CachedNetworkImageProvider   If the tile isn't cached, CachedNetworkImageProvider automatically downloads the image from the URL, if the tiles are already cached it will find them in the local cache and load them instantly, avoiding the need for another network download.
   }
 }
