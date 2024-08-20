@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ice_cream/shops/data/shops_model.dart';
+import 'package:ice_cream/features/shops/data/shops_model.dart';
 
 class ShopRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ice_cream/shops/data/shops_model.dart';
+import 'package:ice_cream/core/app_constants.dart';
+import 'package:ice_cream/features/shops/data/shops_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -60,7 +61,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           children: [
             Positioned(
               child: Container(
-                height: 320,
+                height: 340,
                 width: double.maxFinite,
                 decoration: const BoxDecoration(),
                 child: Image.network(
@@ -70,16 +71,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             ),
             Positioned(
-              top: 300,
+              top: 290,
               child: Container(
-                height: 500,
+                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 241, 255, 255),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
-                  color: Colors.white,
+                 // color: Colors.white,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
@@ -93,8 +95,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             Text(
                               widget.shopdetail.name,
                               style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20.0,
+                                fontFamily: 'DM_Serif_Text',fontSize: 22,
+                                color: AppColor.blush,
                                 fontWeight: FontWeight.w500,
                                 letterSpacing: 0.7,
                               ),
@@ -106,8 +108,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                onPressed: (){
                                     _toggleLike();
                                       print(widget.shopdetail.likesCount);
-                                    
-                                
                                }, 
                                icon: Icon(Icons.star_outline_sharp,
                                color:isLiked ? Colors.yellow : Colors.grey,
@@ -118,24 +118,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         const SizedBox(height: 10.0,),
                          Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Icon(Icons.location_pin),
+                            const Icon(Icons.location_pin,color: AppColor.sakura,),
+                            const SizedBox(width: 10.0,),
                                   GestureDetector(
                                     onTap: () async {
                                         String url = 'https://www.google.com/maps/search/?api=1&query=${widget.shopdetail.address}';
                                         Uri uri = Uri.parse(url);
                                         await launchUrl(uri);
-                              },
-                                                        child:  Text(
-                                                          widget.shopdetail.address,
-                                                          style: const TextStyle(
-                                                            color: Color.fromARGB(255, 4, 129, 56),
-                                                            fontSize: 20.0,
-                                                            fontWeight: FontWeight.w500,
-                                                            letterSpacing: 0.7,
-                                                          ),
-                                                        ),
-                                                              ),
+                                      },
+                                          child:  Text(
+                                            widget.shopdetail.address,
+                                             style: const TextStyle(
+                                              color: AppColor.moss,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 0.7,
+                                            ),
+                                          ),
+                                    ),
                                                               
                           ],
                         ),
@@ -150,8 +152,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                         ),
                         const SizedBox(height: 10,),
+                        GestureDetector(
+                          onTap: (){
+                            print('comments taped');
+                          },
+                          child: Row(
+                            children: [
+                              Text('comments ${widget.shopdetail.commentsCount }'),
+                              Icon(Icons.arrow_drop_down)
+                            ],
+                          ),
+                        )
                       ],
                     ),
+                    
                   ),
                 ),
               ),

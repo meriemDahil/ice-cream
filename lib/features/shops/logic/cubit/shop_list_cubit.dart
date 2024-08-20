@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:ice_cream/shops/data/shops_model.dart';
-import 'package:ice_cream/shops/repo/shop_list_repo.dart';
+import 'package:ice_cream/features/shops/data/shops_model.dart';
+import 'package:ice_cream/features/shops/repo/shop_list_repo.dart';
 
 part 'shop_list_state.dart';
 part 'shop_list_cubit.freezed.dart';

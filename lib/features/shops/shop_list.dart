@@ -1,9 +1,11 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ice_cream/shops/logic/cubit/shop_list_cubit.dart';
-import 'package:ice_cream/shops/ui/shop_item.dart';
+import 'package:ice_cream/features/shops/logic/cubit/shop_list_cubit.dart';
+import 'package:ice_cream/features/shops/ui/shoop_appbar.dart';
+import 'package:ice_cream/features/shops/ui/shop_item.dart';
 class ShopList extends StatefulWidget {
   const ShopList({super.key});
 
@@ -21,6 +23,7 @@ class _ShopListState extends State<ShopList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const IceCreamAppBar(),
       body: BlocBuilder<ShopListCubit, ShopListState>(
         builder: (context, state) {
           return state.when(
