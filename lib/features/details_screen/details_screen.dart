@@ -1,60 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ice_cream/core/app_constants.dart';
+import 'package:ice_cream/core/custom_button_sheet.dart';
+import 'package:ice_cream/features/comments/logic/cubit/comment_cubit.dart';
 import 'package:ice_cream/features/shops/data/shops_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class DetailsScreen extends StatefulWidget {
   final Shop shopdetail;
-   DetailsScreen({super.key, required this.shopdetail});
+  DetailsScreen({super.key, required this.shopdetail});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
- bool isLiked = false;
+  bool isLiked = false;
   late Shop updatedShopDetail;
- 
 
   @override
   void initState() {
     super.initState();
     updatedShopDetail = widget.shopdetail;
+    context.read<CommentCubit>().fetchComments();
+ 
   }
-   Future<void> _updateLikesCountInBackend(int newLikesCount) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('ShopList')
-          .doc(updatedShopDetail.id)
-          .update({'likesCount': newLikesCount});
-    } catch (e) {
-      print('Error updating likes count: $e');
-      print(updatedShopDetail.id);
-    }
-  }
-
-  void _toggleLike()async {
-    setState(() {
-      isLiked = !isLiked;
-      final newLikesCount = isLiked
-          ? updatedShopDetail.likesCount + 1
-          : updatedShopDetail.likesCount - 1;
-      updatedShopDetail = updatedShopDetail.copyWith(likesCount: newLikesCount);
-    });
-    await _updateLikesCountInBackend(updatedShopDetail.likesCount);
-  }
-  
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body:Container(
+      body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
         child: Stack(
@@ -81,7 +63,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
-                 // color: Colors.white,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(13.0),
@@ -95,53 +76,61 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             Text(
                               widget.shopdetail.name,
                               style: const TextStyle(
-                                fontFamily: 'DM_Serif_Text',fontSize: 22,
+                                fontFamily: 'DM_Serif_Text',
+                                fontSize: 22,
                                 color: AppColor.blush,
                                 fontWeight: FontWeight.w500,
                                 letterSpacing: 0.7,
                               ),
-                            ),                        
-                          Row(
-                            children: [
-                              Text('${updatedShopDetail.likesCount}'),
-                              IconButton(
-                               onPressed: (){
-                                    _toggleLike();
-                                      print(widget.shopdetail.likesCount);
-                               }, 
-                               icon: Icon(Icons.star_outline_sharp,
-                               color:isLiked ? Colors.yellow : Colors.grey,
-                               size:30)),
-                            ],
-                          )
+                            ),
+                            Row(
+                              children: [
+                                Text('${updatedShopDetail.likesCount}'),
+                                IconButton(
+                                  onPressed: () {
+                                //    _toggleLike();
+                                    print(widget.shopdetail.likesCount);
+                                  },
+                                  icon: Icon(
+                                    Icons.star_outline_sharp,
+                                    color:
+                                        isLiked ? Colors.yellow : Colors.grey,
+                                    size: 30,
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                        const SizedBox(height: 10.0,),
-                         Row(
+                        const SizedBox(height: 10.0),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Icon(Icons.location_pin,color: AppColor.sakura,),
-                            const SizedBox(width: 10.0,),
-                                  GestureDetector(
-                                    onTap: () async {
-                                        String url = 'https://www.google.com/maps/search/?api=1&query=${widget.shopdetail.address}';
-                                        Uri uri = Uri.parse(url);
-                                        await launchUrl(uri);
-                                      },
-                                          child:  Text(
-                                            widget.shopdetail.address,
-                                             style: const TextStyle(
-                                              color: AppColor.moss,
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.w500,
-                                              letterSpacing: 0.7,
-                                            ),
-                                          ),
-                                    ),
-                                                              
+                            const Icon(
+                              Icons.location_pin,
+                              color: AppColor.sakura,
+                            ),
+                            const SizedBox(width: 10.0),
+                            GestureDetector(
+                              onTap: () async {
+                                String url =
+                                    'https://www.google.com/maps/search/?api=1&query=${widget.shopdetail.address}';
+                                Uri uri = Uri.parse(url);
+                                await launchUrl(uri);
+                              },
+                              child: Text(
+                                widget.shopdetail.address,
+                                style: const TextStyle(
+                                  color: AppColor.moss,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.7,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                        const SizedBox(height: 10.0,),
+                        const SizedBox(height: 10.0),
                         Text(
                           widget.shopdetail.description,
                           style: const TextStyle(
@@ -151,21 +140,48 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             letterSpacing: 0.7,
                           ),
                         ),
-                        const SizedBox(height: 10,),
-                        GestureDetector(
-                          onTap: (){
-                            print('comments taped');
+                        const SizedBox(height: 10),
+                        BlocBuilder<CommentCubit, CommentState>(
+                          builder: (context, state) {
+                            return state.when(
+                              initial: () => const Center(child: Text('Initializing...')),
+                              loading: () => const Center(child: CircularProgressIndicator()),
+                              success: (shops) => GestureDetector(
+                                onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.white,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+                                  ),
+                                  builder: (context) {
+                                    return CommentsBottomSheet(
+                                      commentsCount: widget.shopdetail.commentsCount,
+                                      onCommentSubmitted: (comment) {
+                                        context.read<CommentCubit>().addComment();
+                                        print('New comment: $comment');
+                                    
+                                      },
+                                    );
+                                  },
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Comments (${widget.shopdetail.commentsCount})',
+                                    ),
+                                    const Icon(Icons.arrow_drop_down),
+                                  ],
+                                ),
+                              ),
+                              error: (error) => Center(
+                                child: Text('Error: fetching data $error'),
+                              ),
+                            );
                           },
-                          child: Row(
-                            children: [
-                              Text('comments ${widget.shopdetail.commentsCount }'),
-                              Icon(Icons.arrow_drop_down)
-                            ],
-                          ),
-                        )
+                        ),
                       ],
                     ),
-                    
                   ),
                 ),
               ),

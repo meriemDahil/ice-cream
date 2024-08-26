@@ -12,7 +12,7 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       shopId: json['shopId'] as String,
       userId: json['userId'] as String,
       content: json['content'] as String,
-      timestamp: DateTime.parse(json['timestamp'] as String),
+      timestamp: json['timestamp'] as String,
       likesCount: (json['likesCount'] as num?)?.toInt(),
       likedBy:
           (json['likedBy'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -24,7 +24,7 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'shopId': instance.shopId,
       'userId': instance.userId,
       'content': instance.content,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timestamp': instance.timestamp,
       'likesCount': instance.likesCount,
       'likedBy': instance.likedBy,
     };

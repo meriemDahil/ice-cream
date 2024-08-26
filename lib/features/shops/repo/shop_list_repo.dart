@@ -14,6 +14,7 @@ class ShopRepository {
         return Shop.fromJson(data);
       },
       toFirestore: (shop, _) => shop.toJson(),
+      
     );
   }
   Stream<List<Shop>> getShops() {

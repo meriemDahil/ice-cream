@@ -10,7 +10,7 @@ class Comment with _$Comment {
     required String shopId,
     required String userId,
     required String content,
-    required DateTime timestamp,
+    required String timestamp,
     int? likesCount, // The number of likes the comment has received (optional).
     List<String>? likedBy, 
   }) = _Comment;

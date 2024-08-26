@@ -24,7 +24,7 @@ mixin _$Comment {
   String get shopId => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  DateTime get timestamp => throw _privateConstructorUsedError;
+  String get timestamp => throw _privateConstructorUsedError;
   int? get likesCount =>
       throw _privateConstructorUsedError; // The number of likes the comment has received (optional).
   List<String>? get likedBy => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $CommentCopyWith<$Res> {
       String shopId,
       String userId,
       String content,
-      DateTime timestamp,
+      String timestamp,
       int? likesCount,
       List<String>? likedBy});
 }
@@ -90,7 +90,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       likesCount: freezed == likesCount
           ? _value.likesCount
           : likesCount // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       String shopId,
       String userId,
       String content,
-      DateTime timestamp,
+      String timestamp,
       int? likesCount,
       List<String>? likedBy});
 }
@@ -159,7 +159,7 @@ class __$$CommentImplCopyWithImpl<$Res>
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       likesCount: freezed == likesCount
           ? _value.likesCount
           : likesCount // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ class _$CommentImpl implements _Comment {
   @override
   final String content;
   @override
-  final DateTime timestamp;
+  final String timestamp;
   @override
   final int? likesCount;
 // The number of likes the comment has received (optional).
@@ -258,7 +258,7 @@ abstract class _Comment implements Comment {
       required final String shopId,
       required final String userId,
       required final String content,
-      required final DateTime timestamp,
+      required final String timestamp,
       final int? likesCount,
       final List<String>? likedBy}) = _$CommentImpl;
 
@@ -273,7 +273,7 @@ abstract class _Comment implements Comment {
   @override
   String get content;
   @override
-  DateTime get timestamp;
+  String get timestamp;
   @override
   int? get likesCount;
   @override // The number of likes the comment has received (optional).
