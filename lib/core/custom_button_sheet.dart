@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CommentsBottomSheet extends StatelessWidget {
-  final int commentsCount;
-  final Function(String) onCommentSubmitted;
 
-  const CommentsBottomSheet({
+class CustomBottomSheet extends StatelessWidget {
+  final String title;
+  final List<Widget> children;
+  final Widget? submitButton;
+  final TextEditingController? commentController;
+  final Function(String)? onCommentSubmitted;
+
+  const CustomBottomSheet({
     Key? key,
-    required this.commentsCount,
-    required this.onCommentSubmitted,
+    required this.title,
+    required this.children,
+    this.submitButton,
+    this.commentController,
+    this.onCommentSubmitted,
   }) : super(key: key);
 
   @override
@@ -19,37 +26,31 @@ class CommentsBottomSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Comments ($commentsCount)',
+            title,
             style: const TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 10.0),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 2, // replace with actual comments count
-            itemBuilder: (context, index) {
-              return const ListTile(
-                title: Text('Comment name'),
-                subtitle: Text('Comment text'),
-              );
-            },
-          ),
+          ...children,
           const SizedBox(height: 10.0),
-          TextField(
-            decoration: InputDecoration(
-              labelText: 'Add a comment',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+          if (commentController != null && onCommentSubmitted != null)
+            TextField(
+              controller: commentController,
+              decoration: InputDecoration(
+                labelText: 'Add a comment',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
+              onSubmitted: onCommentSubmitted,
             ),
-            onSubmitted: (value) {
-              onCommentSubmitted(value);
-              
-              Navigator.pop(context);
-            },
-          ),
+          if (submitButton != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: submitButton!,
+            ),
         ],
       ),
     );

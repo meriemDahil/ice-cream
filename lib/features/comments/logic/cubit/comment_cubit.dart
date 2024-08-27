@@ -9,30 +9,23 @@ part 'comment_state.dart';
 part 'comment_cubit.freezed.dart';
 
 class CommentCubit extends Cubit<CommentState> {
-final CommentsRepo _commentsRepo ;
-final TextEditingController commentController = TextEditingController();
+  final CommentsRepo _commentsRepo;
+  final TextEditingController commentController = TextEditingController();
+
   CommentCubit(this._commentsRepo) : super(CommentState.initial());
 
-
   void fetchComments() {
-    emit(const CommentState.loading());
-    try {
-      _commentsRepo.getComments().listen(
-        (comment) {
-          emit(CommentState.success(comment));
-        },
+    _commentsRepo.getComments().listen(
+      (comments) {
+        emit(CommentState.success(comments));
+      },
       onError: (error) {
-          print('Error fetching comments: $error');
-          emit(const CommentState.error('Failed to fetch comments.'));
-        },
-      );
-    } catch (e) {
-      emit(const CommentState.error('An unexpected error occurred.'));
-      print(e.toString());
-    }
+        print('Error fetching comments: $error');
+        emit(const CommentState.error('Failed to fetch comments.'));
+      },
+    );
   }
 
- 
   Future<void> addComment() async {
     if (commentController.text.isNotEmpty) {
       emit(const CommentState.loading());
@@ -42,11 +35,15 @@ final TextEditingController commentController = TextEditingController();
           timestamp: 'time',
           id: 'id',
           shopId: 'shopId',
-          userId: 'shopId',
+          userId: 'userId',
         );
         await _commentsRepo.addComment(comment);
-        commentController.clear(); 
-        emit(CommentState.success([comment]));
+
+        // Clear the comment input after successfully adding
+        commentController.clear();
+
+        // Fetch the updated comments list
+        fetchComments();
       } catch (e) {
         emit(const CommentState.error('Failed to add comment.'));
         print('Error adding comment: $e');
@@ -62,3 +59,4 @@ final TextEditingController commentController = TextEditingController();
     return super.close();
   }
 }
+

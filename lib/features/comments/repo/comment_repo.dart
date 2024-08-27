@@ -37,9 +37,11 @@ class CommentsRepo {
       print('Error adding comment: $e');
     }
   }
+
   void updateComment(String commentId , Comment comment){
     _commentRef.doc(commentId).update(comment.toJson());
   }
+  
   void deleteComment(String commentId){
     _commentRef.doc(commentId).delete();
   }

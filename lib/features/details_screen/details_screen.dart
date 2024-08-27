@@ -1,16 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ice_cream/core/app_constants.dart';
-import 'package:ice_cream/core/custom_button_sheet.dart';
+import 'package:ice_cream/features/comments/data/comment.dart';
 import 'package:ice_cream/features/comments/logic/cubit/comment_cubit.dart';
 import 'package:ice_cream/features/shops/data/shops_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class DetailsScreen extends StatefulWidget {
   final Shop shopdetail;
-  DetailsScreen({super.key, required this.shopdetail});
+
+  const DetailsScreen({super.key, required this.shopdetail});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -18,14 +17,11 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   bool isLiked = false;
-  late Shop updatedShopDetail;
 
   @override
   void initState() {
     super.initState();
-    updatedShopDetail = widget.shopdetail;
     context.read<CommentCubit>().fetchComments();
- 
   }
 
   @override
@@ -85,21 +81,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             ),
                             Row(
                               children: [
-                                Text('${updatedShopDetail.likesCount}'),
+                                Text('${widget.shopdetail.likesCount}'),
                                 IconButton(
                                   onPressed: () {
-                                //    _toggleLike();
-                                    print(widget.shopdetail.likesCount);
+                                    setState(() {
+                                      isLiked = !isLiked;
+                                    });
                                   },
                                   icon: Icon(
                                     Icons.star_outline_sharp,
-                                    color:
-                                        isLiked ? Colors.yellow : Colors.grey,
+                                    color: isLiked ? Colors.yellow : Colors.grey,
                                     size: 30,
                                   ),
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(height: 10.0),
@@ -141,44 +137,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        BlocBuilder<CommentCubit, CommentState>(
-                          builder: (context, state) {
-                            return state.when(
-                              initial: () => const Center(child: Text('Initializing...')),
-                              loading: () => const Center(child: CircularProgressIndicator()),
-                              success: (shops) => GestureDetector(
-                                onTap: () => showModalBottomSheet(
-                                  context: context,
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-                                  ),
-                                  builder: (context) {
-                                    return CommentsBottomSheet(
-                                      commentsCount: widget.shopdetail.commentsCount,
-                                      onCommentSubmitted: (comment) {
-                                        context.read<CommentCubit>().addComment();
-                                        print('New comment: $comment');
-                                    
-                                      },
-                                    );
-                                  },
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Comments (${widget.shopdetail.commentsCount})',
-                                    ),
-                                    const Icon(Icons.arrow_drop_down),
-                                  ],
-                                ),
-                              ),
-                              error: (error) => Center(
-                                child: Text('Error: fetching data $error'),
-                              ),
-                            );
+                        BlocListener<CommentCubit, CommentState>(
+                          listener: (context, state) {
+                            if (state is Success) {
+                              _showCommentsBottomSheet(context, state.comment);
+                            }
                           },
+                          child: const SizedBox.shrink(),
                         ),
                       ],
                     ),
@@ -189,6 +154,62 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showCommentsBottomSheet(BuildContext context, List<Comment> comments) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Comments (${comments.length})',
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              SizedBox(
+                height: 300, 
+                child: ListView.builder(
+                  itemCount: comments.length,
+                  itemBuilder: (context, index) {
+                    final comment = comments[index];
+                    return ListTile(
+                      title: Text(comment.content),
+                      subtitle: Text(comment.timestamp),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              TextField(
+                controller: context.read<CommentCubit>().commentController,
+                decoration: InputDecoration(
+                  labelText: 'Add a comment',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                onSubmitted: (value) {
+                  context.read<CommentCubit>().addComment();
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ice_cream/core/app_constants.dart';
 import 'package:ice_cream/features/details_screen/details_screen.dart';
-import 'package:ice_cream/features/shops/data/shops_model.dart';
-import 'package:ice_cream/features/shops/ui/shoop_appbar.dart';
+import '../data/shops_model.dart';
 
 class ShopItem extends StatefulWidget {
    final List<Shop> shops;
@@ -51,7 +50,6 @@ class _ShopItemState extends State<ShopItem> {
                                        style:TextStyle(fontFamily: 'DM_Serif_Text',fontSize: 22),
                                        maxLines: 1, 
                                        overflow: TextOverflow.ellipsis,
-                                    //   softWrap: false, // Prevents wrapping to the next line
                                       ),
                                       Row(
                                         children: [
