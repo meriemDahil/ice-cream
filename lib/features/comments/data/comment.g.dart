@@ -8,11 +8,11 @@ part of 'comment.dart';
 
 _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
     _$CommentImpl(
-      id: json['id'] as String,
       shopId: json['shopId'] as String,
       userId: json['userId'] as String,
       content: json['content'] as String,
-      timestamp: json['timestamp'] as String,
+      timestamp:
+          const TimestampConverter().fromJson(json['timestamp'] as Timestamp),
       likesCount: (json['likesCount'] as num?)?.toInt(),
       likedBy:
           (json['likedBy'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -20,11 +20,10 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'shopId': instance.shopId,
       'userId': instance.userId,
       'content': instance.content,
-      'timestamp': instance.timestamp,
+      'timestamp': const TimestampConverter().toJson(instance.timestamp),
       'likesCount': instance.likesCount,
       'likedBy': instance.likedBy,
     };

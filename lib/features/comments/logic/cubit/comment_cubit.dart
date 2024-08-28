@@ -32,14 +32,11 @@ class CommentCubit extends Cubit<CommentState> {
       try {
         final comment = Comment(
           content: commentController.text,
-          timestamp: 'time',
-          id: 'id',
+          timestamp: DateTime.now(),
           shopId: 'shopId',
           userId: 'userId',
         );
         await _commentsRepo.addComment(comment);
-
-        // Clear the comment input after successfully adding
         commentController.clear();
 
         // Fetch the updated comments list

@@ -20,11 +20,12 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Comment {
-  String get id => throw _privateConstructorUsedError;
   String get shopId => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
-  String get timestamp => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get timestamp =>
+      throw _privateConstructorUsedError; // Use the custom converter
   int? get likesCount =>
       throw _privateConstructorUsedError; // The number of likes the comment has received (optional).
   List<String>? get likedBy => throw _privateConstructorUsedError;
@@ -40,11 +41,10 @@ abstract class $CommentCopyWith<$Res> {
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
   $Res call(
-      {String id,
-      String shopId,
+      {String shopId,
       String userId,
       String content,
-      String timestamp,
+      @TimestampConverter() DateTime timestamp,
       int? likesCount,
       List<String>? likedBy});
 }
@@ -62,7 +62,6 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? shopId = null,
     Object? userId = null,
     Object? content = null,
@@ -71,10 +70,6 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? likedBy = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       shopId: null == shopId
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
@@ -90,7 +85,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       likesCount: freezed == likesCount
           ? _value.likesCount
           : likesCount // ignore: cast_nullable_to_non_nullable
@@ -111,11 +106,10 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
-      String shopId,
+      {String shopId,
       String userId,
       String content,
-      String timestamp,
+      @TimestampConverter() DateTime timestamp,
       int? likesCount,
       List<String>? likedBy});
 }
@@ -131,7 +125,6 @@ class __$$CommentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? shopId = null,
     Object? userId = null,
     Object? content = null,
@@ -140,10 +133,6 @@ class __$$CommentImplCopyWithImpl<$Res>
     Object? likedBy = freezed,
   }) {
     return _then(_$CommentImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       shopId: null == shopId
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
@@ -159,7 +148,7 @@ class __$$CommentImplCopyWithImpl<$Res>
       timestamp: null == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       likesCount: freezed == likesCount
           ? _value.likesCount
           : likesCount // ignore: cast_nullable_to_non_nullable
@@ -176,11 +165,10 @@ class __$$CommentImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CommentImpl implements _Comment {
   _$CommentImpl(
-      {required this.id,
-      required this.shopId,
+      {required this.shopId,
       required this.userId,
       required this.content,
-      required this.timestamp,
+      @TimestampConverter() required this.timestamp,
       this.likesCount,
       final List<String>? likedBy})
       : _likedBy = likedBy;
@@ -189,15 +177,15 @@ class _$CommentImpl implements _Comment {
       _$$CommentImplFromJson(json);
 
   @override
-  final String id;
-  @override
   final String shopId;
   @override
   final String userId;
   @override
   final String content;
   @override
-  final String timestamp;
+  @TimestampConverter()
+  final DateTime timestamp;
+// Use the custom converter
   @override
   final int? likesCount;
 // The number of likes the comment has received (optional).
@@ -214,7 +202,7 @@ class _$CommentImpl implements _Comment {
 
   @override
   String toString() {
-    return 'Comment(id: $id, shopId: $shopId, userId: $userId, content: $content, timestamp: $timestamp, likesCount: $likesCount, likedBy: $likedBy)';
+    return 'Comment(shopId: $shopId, userId: $userId, content: $content, timestamp: $timestamp, likesCount: $likesCount, likedBy: $likedBy)';
   }
 
   @override
@@ -222,7 +210,6 @@ class _$CommentImpl implements _Comment {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CommentImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.shopId, shopId) || other.shopId == shopId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.content, content) || other.content == content) &&
@@ -235,7 +222,7 @@ class _$CommentImpl implements _Comment {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, shopId, userId, content,
+  int get hashCode => Object.hash(runtimeType, shopId, userId, content,
       timestamp, likesCount, const DeepCollectionEquality().hash(_likedBy));
 
   @JsonKey(ignore: true)
@@ -254,18 +241,15 @@ class _$CommentImpl implements _Comment {
 
 abstract class _Comment implements Comment {
   factory _Comment(
-      {required final String id,
-      required final String shopId,
+      {required final String shopId,
       required final String userId,
       required final String content,
-      required final String timestamp,
+      @TimestampConverter() required final DateTime timestamp,
       final int? likesCount,
       final List<String>? likedBy}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
-  @override
-  String get id;
   @override
   String get shopId;
   @override
@@ -273,8 +257,9 @@ abstract class _Comment implements Comment {
   @override
   String get content;
   @override
-  String get timestamp;
-  @override
+  @TimestampConverter()
+  DateTime get timestamp;
+  @override // Use the custom converter
   int? get likesCount;
   @override // The number of likes the comment has received (optional).
   List<String>? get likedBy;
