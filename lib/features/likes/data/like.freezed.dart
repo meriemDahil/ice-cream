@@ -23,6 +23,7 @@ mixin _$Like {
   String get id => throw _privateConstructorUsedError;
   String get shopId => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,11 @@ abstract class $LikeCopyWith<$Res> {
   factory $LikeCopyWith(Like value, $Res Function(Like) then) =
       _$LikeCopyWithImpl<$Res, Like>;
   @useResult
-  $Res call({String id, String shopId, String userId, DateTime timestamp});
+  $Res call(
+      {String id,
+      String shopId,
+      String userId,
+      @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
@@ -84,7 +89,11 @@ abstract class _$$LikeImplCopyWith<$Res> implements $LikeCopyWith<$Res> {
       __$$LikeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String shopId, String userId, DateTime timestamp});
+  $Res call(
+      {String id,
+      String shopId,
+      String userId,
+      @TimestampConverter() DateTime timestamp});
 }
 
 /// @nodoc
@@ -130,7 +139,7 @@ class _$LikeImpl implements _Like {
       {required this.id,
       required this.shopId,
       required this.userId,
-      required this.timestamp});
+      @TimestampConverter() required this.timestamp});
 
   factory _$LikeImpl.fromJson(Map<String, dynamic> json) =>
       _$$LikeImplFromJson(json);
@@ -142,6 +151,7 @@ class _$LikeImpl implements _Like {
   @override
   final String userId;
   @override
+  @TimestampConverter()
   final DateTime timestamp;
 
   @override
@@ -184,7 +194,7 @@ abstract class _Like implements Like {
       {required final String id,
       required final String shopId,
       required final String userId,
-      required final DateTime timestamp}) = _$LikeImpl;
+      @TimestampConverter() required final DateTime timestamp}) = _$LikeImpl;
 
   factory _Like.fromJson(Map<String, dynamic> json) = _$LikeImpl.fromJson;
 
@@ -195,6 +205,7 @@ abstract class _Like implements Like {
   @override
   String get userId;
   @override
+  @TimestampConverter()
   DateTime get timestamp;
   @override
   @JsonKey(ignore: true)

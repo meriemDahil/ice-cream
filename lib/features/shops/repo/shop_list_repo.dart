@@ -26,4 +26,7 @@ class ShopRepository {
       return Stream.error(e);
     }
   }
+
+
 }
+

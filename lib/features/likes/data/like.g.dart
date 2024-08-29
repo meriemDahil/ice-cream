@@ -10,7 +10,8 @@ _$LikeImpl _$$LikeImplFromJson(Map<String, dynamic> json) => _$LikeImpl(
       id: json['id'] as String,
       shopId: json['shopId'] as String,
       userId: json['userId'] as String,
-      timestamp: DateTime.parse(json['timestamp'] as String),
+      timestamp:
+          const TimestampConverter().fromJson(json['timestamp'] as Timestamp),
     );
 
 Map<String, dynamic> _$$LikeImplToJson(_$LikeImpl instance) =>
@@ -18,5 +19,5 @@ Map<String, dynamic> _$$LikeImplToJson(_$LikeImpl instance) =>
       'id': instance.id,
       'shopId': instance.shopId,
       'userId': instance.userId,
-      'timestamp': instance.timestamp.toIso8601String(),
+      'timestamp': const TimestampConverter().toJson(instance.timestamp),
     };

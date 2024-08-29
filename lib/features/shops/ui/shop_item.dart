@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ice_cream/core/app_constants.dart';
-import 'package:ice_cream/features/details_screen/ui/widgets/details_screen.dart';
+import 'package:ice_cream/features/details_screen/ui/details_screen.dart';
 import '../data/shops_model.dart';
 
 class ShopItem extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ice_cream/features/comments/logic/cubit/comment_cubit.dart';
 import 'package:ice_cream/features/details_screen/ui/widgets/detailed_image.dart';
-import 'package:ice_cream/features/details_screen/ui/screen_details.dart';
+import 'package:ice_cream/features/details_screen/ui/widgets/screen_details.dart';
 import 'package:ice_cream/features/shops/data/shops_model.dart';
 
 

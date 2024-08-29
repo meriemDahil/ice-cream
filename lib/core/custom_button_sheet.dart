@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ice_cream/features/comments/logic/cubit/comment_cubit.dart';
+import 'package:ice_cream/features/shops/data/shops_model.dart';
 
 
 class CommentsBottomSheet extends StatelessWidget {
@@ -9,6 +10,7 @@ class CommentsBottomSheet extends StatelessWidget {
   final TextStyle titleStyle;
   final double maxHeight;
   final InputDecoration? inputDecoration;
+  final String shopId ;
 
   const CommentsBottomSheet({
     super.key,
@@ -17,16 +19,17 @@ class CommentsBottomSheet extends StatelessWidget {
     this.titleStyle = const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
     this.maxHeight = 300.0,
     this.inputDecoration,
+    required this.shopId,
   });
 
-  static void show(BuildContext context) {
+  static void show(BuildContext context, String name) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => Padding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: const CommentsBottomSheet(),
+        child:  CommentsBottomSheet(shopId: name,),
       ),
     );
   }
@@ -47,7 +50,7 @@ class CommentsBottomSheet extends StatelessWidget {
           return BlocBuilder<CommentCubit, CommentState>(
             builder: (context, state) {
               if (state is Success) {
-                return _buildSuccessContent(context, state, controller);
+                return _buildSuccessContent(context, state, controller,);
               } else if (state is Loading) {
                 return const Center(child: CircularProgressIndicator());
               } else {
@@ -116,7 +119,8 @@ class CommentsBottomSheet extends StatelessWidget {
         ),
       ),
       onSubmitted: (value) {
-        context.read<CommentCubit>().addComment();
+        context.read<CommentCubit>().addComment(shopId);
+        print (shopId);
       },
     );
   }

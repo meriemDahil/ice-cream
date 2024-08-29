@@ -26,14 +26,14 @@ class CommentCubit extends Cubit<CommentState> {
     );
   }
 
-  Future<void> addComment() async {
+  Future<void> addComment(String shopId) async {
     if (commentController.text.isNotEmpty) {
       emit(const CommentState.loading());
       try {
         final comment = Comment(
           content: commentController.text,
           timestamp: DateTime.now(),
-          shopId: 'shopId',
+          shopId: shopId,
           userId: 'userId',
         );
         await _commentsRepo.addComment(comment);

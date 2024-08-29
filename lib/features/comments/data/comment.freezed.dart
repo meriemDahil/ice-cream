@@ -24,8 +24,7 @@ mixin _$Comment {
   String get userId => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   @TimestampConverter()
-  DateTime get timestamp =>
-      throw _privateConstructorUsedError; // Use the custom converter
+  DateTime get timestamp => throw _privateConstructorUsedError;
   int? get likesCount =>
       throw _privateConstructorUsedError; // The number of likes the comment has received (optional).
   List<String>? get likedBy => throw _privateConstructorUsedError;
@@ -185,7 +184,6 @@ class _$CommentImpl implements _Comment {
   @override
   @TimestampConverter()
   final DateTime timestamp;
-// Use the custom converter
   @override
   final int? likesCount;
 // The number of likes the comment has received (optional).
@@ -259,7 +257,7 @@ abstract class _Comment implements Comment {
   @override
   @TimestampConverter()
   DateTime get timestamp;
-  @override // Use the custom converter
+  @override
   int? get likesCount;
   @override // The number of likes the comment has received (optional).
   List<String>? get likedBy;
