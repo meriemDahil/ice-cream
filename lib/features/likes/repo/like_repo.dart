@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LikesRepository {
@@ -7,14 +5,12 @@ class LikesRepository {
   
 
   Future<void> likeShop(String shopId) async {
-    // Example: Increment likes in FirebaseFirestore
     await FirebaseFirestore.instance.collection('ShopList').doc(shopId).update({
       'likesCount': FieldValue.increment(1),
     });
   }
 
   Future<void> unlikeShop(String shopId) async {
-    // Example: Decrement likes in FirebaseFirestore
     await FirebaseFirestore.instance.collection('ShopList').doc(shopId).update({
       'likesCount': FieldValue.increment(-1),
     });

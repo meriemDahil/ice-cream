@@ -5,44 +5,28 @@ import 'package:ice_cream/features/likes/repo/like_repo.dart';
 part 'likes_state.dart';
 part 'likes_cubit.freezed.dart';
 
-
-
 class LikesCubit extends Cubit<LikesState> {
-  final LikesRepository likesRepository;
-  
+  final LikesRepository _likesRepository;
 
-  LikesCubit({
-    required this.likesRepository,
-    
-  }) : super(const LikesState.initial()) {
-    _fetchLikesCount();
+  LikesCubit(this._likesRepository) : super(LikesState.initial());
+
+  Stream<int> getLikesCount(String shopId) {
+    return _likesRepository.getLikesCount(shopId);
   }
 
-   late String shopId;
-
-  void _fetchLikesCount() async {
+  Future<void> likeShop(String shopId) async {
     try {
-      likesRepository.getLikesCount(shopId).listen((likesCount) {
-        emit(LikesState.likesCountChanged(likesCount));
-      });
+      await _likesRepository.likeShop(shopId);
+      emit(LikesState.updated());
     } catch (e) {
       emit(LikesState.error(e.toString()));
     }
   }
 
-  Future<void> likeShop() async {
+  Future<void> unlikeShop(String shopId) async {
     try {
-      await likesRepository.likeShop(shopId);
-      emit(const LikesState.updated());
-    } catch (e) {
-      emit(LikesState.error(e.toString()));
-    }
-  }
-
-  Future<void> unlikeShop() async {
-    try {
-      await likesRepository.unlikeShop(shopId);
-      emit(const LikesState.updated());
+      await _likesRepository.unlikeShop(shopId);
+      emit(LikesState.updated());
     } catch (e) {
       emit(LikesState.error(e.toString()));
     }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ice_cream/features/comments/logic/cubit/comment_cubit.dart';
 import 'package:ice_cream/features/details_screen/ui/widgets/detailed_image.dart';
 import 'package:ice_cream/features/details_screen/ui/widgets/screen_details.dart';
+import 'package:ice_cream/features/likes/logic/cubit/likes_cubit.dart';
 import 'package:ice_cream/features/shops/data/shops_model.dart';
 
 
@@ -19,7 +20,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<CommentCubit>().fetchComments();  // Fetch comments when the screen is initialized
+    context.read<CommentCubit>().fetchComments();
+     context.read<LikesCubit>().getLikesCount(widget.shopdetail.id);  // Fetch likes when the screen is initialized
   }
 
   @override

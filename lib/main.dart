@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CommentCubit(context.read<CommentsRepo>()),
           ),
           BlocProvider<LikesCubit>(
-            create: (context) => LikesCubit(likesRepository: context.read<LikesRepository>(), ),
+            create: (context) => LikesCubit(context.read<LikesRepository>() ),
           ),
         ],
         child: const MaterialApp(
